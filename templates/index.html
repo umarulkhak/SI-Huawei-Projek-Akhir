@@ -1,0 +1,111 @@
+{% extends "main_layout.html" %}
+{% block content %}
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Form Analisa Sentimen EDOM
+            </div>
+            <div class="card-body">
+                <form action="/sentiment_prediction" method="post" enctype="multipart/form-data" class="m-4">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Dosen</label>
+                            <select class="form-control form-control-sm" name="nama">
+                                <option>Pilih</option>
+                                <option>David Bani Adam, S.H, M.H</option>
+                                <option>Rosid Mustofa, M.Kom</option>
+                                <option>Muhammad Fikri Hidayattullah, S.T., M.Kom.</option>
+                                <option>Hendrawan Aprilia A, S.T.</option>
+                                <option>Priyanto Tamami, S.Kom.</option>
+                                <option>M. Nishom, M.Kom.</option>
+                                <option>Dwi Intan Af'idah, M.Kom.</option>
+                                <option>Mirza Alim Mutasodirin, M.Kom</option>
+                                <option>Ardi Susanto, S.Kom., M.Cs.</option>
+                                <option>Riszki Wijayatun Pratiwi., M.CS.</option>
+                                <option>Ary Herijanto, S.Kom, MMSi</option>
+                                <option>Romi Muharyono, S.Ag.</option>
+                                <option>Hepatika Zidny Ilmadina, S.Pd., M.Kom.</option>
+                                <option>Sharfina Febbi Handayani, M.Kom.</option>
+                                <option>Ginanjar Wiro Sasmito, M.Kom.</option>
+                                <option>Taufiq Abidin, M.Kom.</option>
+                                <option>Dega Surono Wibowo, S.T., M.Kom.</option>
+                                <option>Dairoh, M.Sc.</option>
+                                <option>Slamet Wiyono, S.Pd., M. Eng.</option>
+                                <option>Muchammad Sofyan Firmansyah, S.S, M.A</option>
+                                <option>Aris Setyawan, S.T</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Semester</label>
+                            <select class="form-control form-control-sm" name="semester">
+                                <option>Pilih</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Komentar</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            name="review"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <button type="submit" name="submit" value="submit" class="btn btn-dark">Check
+                                Sentiment</button>
+                        </div>
+                    </div>
+                    <div class="card-group">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Review</h5>
+                                {% if probability %}
+                                <p class="card-text">
+                                    {{text}}
+                                </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Sentiment</h5>
+                                {% if probability %}
+                                <p class="card-text" name="sentimen">
+                                    {{ sentiment }}
+                                </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Probability</h5>
+                                {% if probability %}
+                                <p class="card-text" name="probability">
+                                    {{ probability }}
+                                </p>
+                                {% endif %}
+                            </div>
+                        </div> -->
+                        <div class="card">
+                            <div class="card-body">
+                                {% if probability %}
+                                <div><img src="{{ image }}" alt="Image" class='rounded mx-auto d-block my-3' height="100"></div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+</div>
+
+{% endblock %}
