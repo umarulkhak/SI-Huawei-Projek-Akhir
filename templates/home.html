@@ -1,69 +1,76 @@
 {% extends "main_layout.html" %}
+{% block title %}Dashboard | EDOM Insight{% endblock %}
 {% block content %}
-
-<!-- Page Content-->
-<div class="container">
-    <!-- Heading Row-->
-    <div class="row align-items-center">
-        <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="{{ url_for('static', filename='students.jpg' ) }}" alt="..." /></div>
-        <div class="col-lg-5">
-            <h2 class="font-weight-light">Analisis Sentimen | EDOM Politeknik Harapan Bersama</h2>
-            <p>Website ini merupakan sistem yang dapat menganalisa komentar mahasiswa terhadap penilaian subjektif kepada dosen kedalam 4 kategori yaitu kurang, cukup, baik dan sangat baik!</p>
-            <a class="btn btn-primary" href="{{ url_for('predik' ) }}"><i class="fa-solid fa-paper-plane"></i> Mulai Analysis!</a>
+<div class="container page-shell">
+    <section class="hero-panel">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <span class="eyebrow">Analisis evaluasi dosen</span>
+                <h1 class="hero-title">Ubah masukan menjadi <span>insight.</span></h1>
+                <p class="hero-copy">
+                    Pahami sentimen komentar mahasiswa dengan lebih mudah. Sistem mengelompokkan
+                    evaluasi dosen ke dalam empat kategori untuk membantu membaca masukan secara terstruktur.
+                </p>
+                <a class="btn btn-primary" href="{{ url_for('predik') }}">
+                    Mulai analisis <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image-wrap">
+                    <img class="hero-image" src="{{ url_for('static', filename='students1.jpg') }}"
+                        alt="Mahasiswa berdiskusi bersama">
+                    <div class="hero-caption"><i class="fa-solid fa-circle-check"></i> Insight dari suara mahasiswa</div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <section class="mt-5">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-end mb-4">
+            <div>
+                <h2 class="section-heading">Bagaimana sistem bekerja</h2>
+                <p class="section-subtitle">Alur singkat di balik analisis sentimen EDOM.</p>
+            </div>
+            <span class="eyebrow mt-3 mt-sm-0">Metodologi</span>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 mb-3">
+                <article class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-database"></i></div>
+                    <h3>Dataset</h3>
+                    <img class="feature-visual" src="{{ url_for('static', filename='datasetchart.png') }}"
+                        alt="Visualisasi kategori dataset">
+                    <p>8.092 komentar evaluasi dosen digunakan sebagai data latih dan data uji untuk membangun model.</p>
+                </article>
+            </div>
+            <div class="col-lg-3 col-sm-6 mb-3">
+                <article class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                    <h3>Ekstraksi fitur</h3>
+                    <img class="feature-visual" src="{{ url_for('static', filename='tfidf.png') }}"
+                        alt="Diagram ekstraksi fitur TF-IDF">
+                    <p>TF-IDF mengubah kata dalam komentar menjadi representasi numerik untuk proses pemodelan.</p>
+                </article>
+            </div>
+            <div class="col-lg-3 col-sm-6 mb-3">
+                <article class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
+                    <h3>Pemodelan</h3>
+                    <img class="feature-visual" src="{{ url_for('static', filename='lstm.png') }}"
+                        alt="Diagram model LSTM">
+                    <p>Model LSTM mempelajari pola bahasa pada komentar untuk memprediksi kategori sentimennya.</p>
+                </article>
+            </div>
+            <div class="col-lg-3 col-sm-6 mb-3">
+                <article class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-code"></i></div>
+                    <h3>Teknologi</h3>
+                    <img class="feature-visual" src="{{ url_for('static', filename='library.png') }}"
+                        alt="Library yang digunakan untuk membangun model">
+                    <p>Proyek ini memanfaatkan Python, NumPy, Pandas, NLTK, TensorFlow, Sastrawi, dan library pendukung.</p>
+                </article>
+            </div>
+        </div>
+    </section>
 </div>
-
-
-
-<!-- Page Content-->
-<section class="pt-4">
-    <div class="container">
-        <!-- Page Features-->
-        <div class="row gx-lg-5">
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                        <h2 class="fs-4 fw-bold">Dataset</h2>
-                        <img class="img-fluid rounded mb-4 mb-lg-0" src="{{ url_for('static', filename='datasetchart.png' ) }}">
-                        <p class="mb-0">8092 Dataset berupa komentar mahasiswa terhadap evalusi dosen digunakan sebagai data latih dengan pembagian 80% sebagai data latih dan 20% data testing. presentasi kategori isi data : 28.7% (Kurang), 21.1% (Cukup), 15.3% (Baik) dan 28.9% (Sangat Baik)</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                        <h2 class="fs-4 fw-bold">Extrasi Fitur</h2>
-                        <img class="img-fluid rounded mb-4 mb-lg-0" src="{{ url_for('static', filename='tfidf.png' ) }}">
-                        <p class="mb-0">Term frequency-inverse document frequency (TF-IDF) digunakan untuk pembobotan kata pada dataset komentar mahasiswa sebagai bentuk numerik untuk pemodelan pada aplikasi website ini.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                        <h2 class="fs-4 fw-bold">Modeling</h2>
-                        <img class="img-fluid rounded mb-4 mb-lg-0" src="{{ url_for('static', filename='lstm.png' ) }}">
-                        <p class="mb-0">Long short term memory network (LSTM) digunakan sebagai algoritma modeling yang menghasilkan akurasi sangat baik dengan memanfaatkan library earlystoping sehingga mendapatkan akurasi terbaik dalam modeling.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                        <h2 class="fs-4 fw-bold">Library</h2>
-                        <img class="img-fluid rounded mb-4 mb-lg-0" src="{{ url_for('static', filename='library.png' ) }}">
-                        <p class="mb-0">Library yang digunakan untuk membangun model menggunakan numpy, pandas, nltk, tensorflow dan sastrawi serta beberapa library lain.</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-
 {% endblock %}

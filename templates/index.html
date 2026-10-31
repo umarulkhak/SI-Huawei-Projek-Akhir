@@ -1,111 +1,97 @@
 {% extends "main_layout.html" %}
+{% block title %}Analisis Sentimen | EDOM Insight{% endblock %}
 {% block content %}
+<div class="container page-shell">
+    <header class="mb-4">
+        <span class="eyebrow">Analisis komentar</span>
+        <h1 class="page-title">Periksa sentimen EDOM</h1>
+        <p class="page-description">
+            Pilih dosen dan semester, lalu masukkan komentar mahasiswa untuk melihat kategori sentimennya.
+        </p>
+    </header>
 
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                Form Analisa Sentimen EDOM
-            </div>
-            <div class="card-body">
-                <form action="/sentiment_prediction" method="post" enctype="multipart/form-data" class="m-4">
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="exampleInputEmail1">Dosen</label>
-                            <select class="form-control form-control-sm" name="nama">
-                                <option>Pilih</option>
-                                <option>David Bani Adam, S.H, M.H</option>
-                                <option>Rosid Mustofa, M.Kom</option>
-                                <option>Muhammad Fikri Hidayattullah, S.T., M.Kom.</option>
-                                <option>Hendrawan Aprilia A, S.T.</option>
-                                <option>Priyanto Tamami, S.Kom.</option>
-                                <option>M. Nishom, M.Kom.</option>
-                                <option>Dwi Intan Af'idah, M.Kom.</option>
-                                <option>Mirza Alim Mutasodirin, M.Kom</option>
-                                <option>Ardi Susanto, S.Kom., M.Cs.</option>
-                                <option>Riszki Wijayatun Pratiwi., M.CS.</option>
-                                <option>Ary Herijanto, S.Kom, MMSi</option>
-                                <option>Romi Muharyono, S.Ag.</option>
-                                <option>Hepatika Zidny Ilmadina, S.Pd., M.Kom.</option>
-                                <option>Sharfina Febbi Handayani, M.Kom.</option>
-                                <option>Ginanjar Wiro Sasmito, M.Kom.</option>
-                                <option>Taufiq Abidin, M.Kom.</option>
-                                <option>Dega Surono Wibowo, S.T., M.Kom.</option>
-                                <option>Dairoh, M.Sc.</option>
-                                <option>Slamet Wiyono, S.Pd., M. Eng.</option>
-                                <option>Muchammad Sofyan Firmansyah, S.S, M.A</option>
-                                <option>Aris Setyawan, S.T</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="exampleInputEmail1">Semester</label>
-                            <select class="form-control form-control-sm" name="semester">
-                                <option>Pilih</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Komentar</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                            name="review"></textarea>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <button type="submit" name="submit" value="submit" class="btn btn-dark">Check
-                                Sentiment</button>
-                        </div>
-                    </div>
-                    <div class="card-group">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Review</h5>
-                                {% if probability %}
-                                <p class="card-text">
-                                    {{text}}
-                                </p>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Sentiment</h5>
-                                {% if probability %}
-                                <p class="card-text" name="sentimen">
-                                    {{ sentiment }}
-                                </p>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <!-- <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Probability</h5>
-                                {% if probability %}
-                                <p class="card-text" name="probability">
-                                    {{ probability }}
-                                </p>
-                                {% endif %}
-                            </div>
-                        </div> -->
-                        <div class="card">
-                            <div class="card-body">
-                                {% if probability %}
-                                <div><img src="{{ image }}" alt="Image" class='rounded mx-auto d-block my-3' height="100"></div>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-            </div>
+    <section class="content-card">
+        <div class="content-card-header">
+            <h2 class="section-heading">Form analisis</h2>
+            <p class="section-subtitle mt-1">Lengkapi informasi dan komentar yang ingin dianalisis.</p>
         </div>
-        </form>
-    </div>
-</div>
-</div>
+        <div class="content-card-body">
+            <form action="{{ url_for('sent_anly_prediction') }}" method="post">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="form-label" for="nama">Nama dosen</label>
+                        <select class="form-control" id="nama" name="nama" required>
+                            <option value="" disabled selected>Pilih nama dosen</option>
+                            <option>David Bani Adam, S.H, M.H</option>
+                            <option>Rosid Mustofa, M.Kom</option>
+                            <option>Muhammad Fikri Hidayattullah, S.T., M.Kom.</option>
+                            <option>Hendrawan Aprilia A, S.T.</option>
+                            <option>Priyanto Tamami, S.Kom.</option>
+                            <option>M. Nishom, M.Kom.</option>
+                            <option>Dwi Intan Af'idah, M.Kom.</option>
+                            <option>Mirza Alim Mutasodirin, M.Kom</option>
+                            <option>Ardi Susanto, S.Kom., M.Cs.</option>
+                            <option>Riszki Wijayatun Pratiwi., M.CS.</option>
+                            <option>Ary Herijanto, S.Kom, MMSi</option>
+                            <option>Romi Muharyono, S.Ag.</option>
+                            <option>Hepatika Zidny Ilmadina, S.Pd., M.Kom.</option>
+                            <option>Sharfina Febbi Handayani, M.Kom.</option>
+                            <option>Ginanjar Wiro Sasmito, M.Kom.</option>
+                            <option>Taufiq Abidin, M.Kom.</option>
+                            <option>Dega Surono Wibowo, S.T., M.Kom.</option>
+                            <option>Dairoh, M.Sc.</option>
+                            <option>Slamet Wiyono, S.Pd., M. Eng.</option>
+                            <option>Muchammad Sofyan Firmansyah, S.S, M.A</option>
+                            <option>Aris Setyawan, S.T</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-label" for="semester">Semester</label>
+                        <select class="form-control" id="semester" name="semester" required>
+                            <option value="" disabled selected>Pilih semester</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="review">Komentar mahasiswa</label>
+                    <textarea class="form-control" id="review" name="review" rows="5"
+                        placeholder="Tuliskan komentar yang ingin dianalisis..." required></textarea>
+                    <p class="form-hint">Gunakan komentar yang jelas agar hasil analisis lebih mudah dipahami.</p>
+                </div>
+                <button type="submit" name="submit" value="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Analisis komentar
+                </button>
+            </form>
 
+            {% if sentiment %}
+            <section class="result-panel" aria-live="polite">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-start">
+                    <div class="flex-grow-1">
+                        <span class="eyebrow">Hasil analisis</span>
+                        <div class="row mt-3">
+                            <div class="col-md-7 mb-3">
+                                <div class="result-label">Komentar</div>
+                                <p class="result-value mb-0">{{ text }}</p>
+                            </div>
+                            <div class="col-md-5 mb-3">
+                                <div class="result-label">Kategori sentimen</div>
+                                <span class="sentiment-pill sentiment-{{ sentiment|lower|replace(' ', '-') }}">{{ sentiment }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <img class="result-image ml-md-4" src="{{ image }}" alt="Ilustrasi sentimen {{ sentiment }}">
+                </div>
+            </section>
+            {% endif %}
+        </div>
+    </section>
+</div>
 {% endblock %}

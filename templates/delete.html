@@ -1,16 +1,18 @@
 {% extends "main_layout.html" %}
+{% block title %}Konfirmasi hapus | EDOM Insight{% endblock %}
 {% block content %}
-
-    <div class="container">
-        <form action='' method="post">
-        <div class="card">
-            <div class="card-header">
-                Click YES to confirm
-                <input type = "submit" value="YES" class="btn btn-danger">
-                <a href='/'>Cancel</a>
-            </div>
+<div class="container page-shell">
+    <section class="delete-panel">
+        <div class="delete-icon"><i class="fa-solid fa-trash-can"></i></div>
+        <span class="eyebrow">Konfirmasi tindakan</span>
+        <h1 class="page-title" style="font-size: 28px;">Hapus data analisis?</h1>
+        <p class="page-description mx-auto mb-4">
+            Data yang dihapus tidak dapat dikembalikan. Pastikan Anda ingin melanjutkan.
+        </p>
+        <form action="" method="post">
+            <button type="submit" class="btn btn-danger px-4">Ya, hapus data</button>
+            <a class="btn btn-light border ml-2 px-4" href="{{ url_for('data') }}">Batal</a>
         </form>
-    </div>
-
-
+    </section>
+</div>
 {% endblock %}

@@ -1,56 +1,62 @@
 {% extends "main_layout.html" %}
+{% block title %}Data EDOM | EDOM Insight{% endblock %}
 {% block content %}
+<div class="container page-shell">
+    <header class="mb-4">
+        <span class="eyebrow">Arsip analisis</span>
+        <h1 class="page-title">Data sentimen EDOM</h1>
+        <p class="page-description">Lihat komentar yang sudah dianalisis dan kategori sentimennya.</p>
+    </header>
 
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        Data Rekap Sentiment EDOM
-                    </div>
-                    <!-- <div class="form-group col-md-6 text-right">
-                        <a class="btn btn-success btn-sm" href=""><i class="fa-solid fa-download"></i>
-                            Export CSV
-                        </a>
-                    </div> -->
-                </div>
+    <section class="content-card">
+        <div class="content-card-header d-flex flex-column flex-sm-row justify-content-between align-items-sm-center">
+            <div>
+                <h2 class="section-heading">Rekap analisis</h2>
+                <p class="section-subtitle mt-1">Daftar hasil analisis komentar mahasiswa.</p>
             </div>
-            <div class="container">
+            <span class="eyebrow mt-3 mt-sm-0">{{ edom|length }} data</span>
+        </div>
+        {% if edom %}
+        <div class="table-wrap">
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Nama Dosen</th>
-                            <th scope="col">Review</th>
-                            <th scope="col">Sentiment</th>
-                            <!-- <th scope="col">Probability</th> -->
-                            <th scope="col">Action</th>
+                            <th scope="col">No.</th>
+                            <th scope="col">Nama dosen</th>
+                            <th scope="col">Komentar</th>
+                            <th scope="col">Sentimen</th>
+                            <th scope="col" class="text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for edom in edom %}
-                        <tr
-                        {% if loop.index %2==0 %}
-                        style="background-color: rgb(239, 244, 255);"
-                        {% else %}
-                        style="background-color: rgb(255, 255, 255);"
-                        {% endif %}
-                        ><td>{{ loop.index }}</td>
-                        <td>{{edom.nama}}</td>
-                        <td>{{edom.review}}</td>
-                        <td>{{edom.sentiment}}</td>
-                        <!-- <td>{{edom.probability}}</td> -->
-                            <td>
-                                <span><a class="btn btn-outline-dark" href="/{{edom.id}}/delete"> <i class="fa-solid fa-trash-can"></i></a></span>
+                        {% for entry in edom %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ entry.nama }}</td>
+                            <td class="review-cell">{{ entry.review }}</td>
+                            <td><span class="sentiment-pill sentiment-{{ entry.sentiment|lower|replace(' ', '-') }}">{{ entry.sentiment }}</span></td>
+                            <td class="text-right">
+                                <a class="btn btn-sm btn-outline-danger"
+                                    href="{{ url_for('delete', id=entry.id) }}"
+                                    aria-label="Hapus data {{ loop.index }}" title="Hapus data">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
                             </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
-            </div>
         </div>
-    </div>
-
+        {% else %}
+        <div class="empty-state">
+            <i class="fa-regular fa-folder-open"></i>
+            <strong>Belum ada data analisis</strong>
+            <p class="mb-3 mt-2">Hasil analisis komentar akan muncul di halaman ini.</p>
+            <a class="btn btn-primary" href="{{ url_for('predik') }}">Mulai analisis</a>
+        </div>
+        {% endif %}
+    </section>
+</div>
 {% endblock %}

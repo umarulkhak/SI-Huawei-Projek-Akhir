@@ -1,27 +1,37 @@
-# SI-Huawei-Projek-Akhir (Sentiment Analysis EDOM) 
+# SI Huawei Projek Akhir — Analisis Sentimen EDOM
 
-A `LSTM` Recurrent Neural Network based Flask Web App that classifies the sentiment of EDOM.
-# Getting Started
+Aplikasi web Flask untuk menganalisis komentar evaluasi dosen (EDOM) menggunakan model LSTM. Komentar diklasifikasikan ke dalam empat kategori: **Kurang**, **Cukup**, **Baik**, dan **Sangat Baik**.
 
-To get the app working locally:
-1. Clone or download the repository locally.
-2. Within the SI-Huawei-Projek-Akhir directory, create a virtual Python environment with the Terminal command `python -m venv flaskapp` where `flaskapp` is the name of your environment. You can choose any name.
-3. Activate the virtual environment with the command        `
-    ```bash                 
-    flaskapp\scripts\activate.bat
-    ```
-4. Then run the command `pip install -r requirements.txt` (In case of error in Windows at this point, you need to set the LongPathsEnabled Registry value to 1. [See here](https://stackoverflow.com/questions/54778630/could-not-install-packages-due-to-an-environmenterror-errno-2-no-such-file-or/55189256#55189256))
-5. Next, set the FLASK_APP variable to app.py and FLASK_ENV to development by running the following command (for windows) 
-   ```bash
-    set FLASK_APP=app.py
-    ```
-6. Also, set the FLASK_ENV to `development` by running the following command (for windows)
-    ```bash
-    set FLASK_ENV=development
-    ```
-7. And finally, run the command `python -m flask run` to start the app
-8. The terminal will output the local web address and port where the app is running. As an example, this might be `http://127.0.0.1:5000/`. Now, open a web browser and go to that web address.
+## Tampilan aplikasi
 
-# Prerequisites
+![Dashboard EDOM Insight](static/edom-dashboard.png)
 
-You will need [Python3 installed](https://www.python.org/downloads/) on your local machine.
+## Fitur
+
+- Menganalisis komentar mahasiswa berdasarkan dosen dan semester.
+- Menampilkan kategori sentimen beserta ilustrasinya.
+- Menyimpan dan menampilkan rekap hasil analisis.
+
+## Menjalankan aplikasi
+
+Proyek ini menggunakan dependensi TensorFlow dan Flask versi lama. Gunakan versi Python yang kompatibel dengan paket pada `requirements.txt`.
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+python app.py
+```
+
+Di Windows, aktifkan virtual environment dengan:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+Setelah server berjalan, buka alamat lokal yang ditampilkan di terminal (biasanya `http://127.0.0.1:5000`).
+
+## Berkas model
+
+Aplikasi memuat `best_model.h5` dan `tokenizer1.pickle` dari direktori proyek. Pastikan kedua berkas tersebut tersedia sebelum menjalankan aplikasi.
